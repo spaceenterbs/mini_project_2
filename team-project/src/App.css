@@ -1,7 +1,16 @@
 .App {
   text-align: center;
 }
-
+@font-face {
+  font-family: "UhBeemysen";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeemysen.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  font-family: "UhBeemysen";
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
