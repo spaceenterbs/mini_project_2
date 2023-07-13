@@ -1,6 +1,9 @@
+
 import styled from "styled-components";
 import { useState } from "react";
 import Box from "./Box";
+
+
 
 const StyledContainer = styled.div`
   box-sizing: border-box;
@@ -40,6 +43,7 @@ const Grid = styled.div`
   width: 500px;
 `;
 let count = 0;
+
 function Container(props) {
   const questionBox = [
     "오늘은 힐링을 위해 소품샵에 가려고 외출을 하였다. 소품샵을 가는 길에 언젠가 한번 가보려고 했던 가게가 보인다. 이 때, 당신에게 드는 생각은?",
@@ -73,35 +77,98 @@ function Container(props) {
   );
   const [answerA, setAnswerA] = useState("미래에 대한 두루뭉실한 고민");
   const [answerB, setAnswerB] = useState("오늘 당장 해야하는 것에 대한 고민");
+   const [array, setArray] = useState([]);
 
-  const handleAnswer = () => {
-    setAnswerA(answerBoxA[count]);
-    setAnswerB(answerBoxB[count]);
-    setQuestion(questionBox[count]);
-    count++;
-  };
-  return (
-    <div>
-      <StyledContainer className="container">
-        <Wrapper className="wrapper">
-          <QBox className="box_question">
-            <div>{question}</div>
-          </QBox>
-          <Grid>
-            <Box
-              className="box_answer_1"
-              handleClick={handleAnswer}
-              text={answerA}
-            ></Box>
-            <Box
-              className="box_answer_2"
-              handleClick={handleAnswer}
-              text={answerB}
-            />
-          </Grid>
-        </Wrapper>
-      </StyledContainer>
-    </div>
-  );
+    const [color, setColor] = useState('none');
+    const [isClickA, setIsClickA] = useState(false);
+    const [isClickB, setIsClickB] = useState(false);
+    const handleAnswerA = () => {
+        setArray((prevArray) => [answerA, ...prevArray]);
+
+        // const props = useSpring({
+        //     to: { opacity: 0 },
+        //     from: { opacity: 1 },
+        //     reset: true,
+        //     // reverse: isActive,
+        //     delay: 200,
+        //     // onreset: () => setIsActive(!isActive),
+        // });
+
+        setAnswerA(answerBoxA[count]);
+        setAnswerB(answerBoxB[count]);
+        setQuestion(questionBox[count]);
+        setIsClickA(true);
+        count++;
+        if (count === 8) {
+            setAnswerA(answerBoxA[6]);
+            setAnswerB(answerBoxB[6]);
+            setQuestion(questionBox[6]);
+        }
+        console.log(array);
+    };
+    const handleAnswerB = () => {
+        setArray((prevArray) => [answerB, ...prevArray]); // setState함수인 setArray는 비동기적으로 작동하기 때문에
+        // 상태 업데이트를 한 직후에 상태를 확인할 수 없다. 그래서 다음 버튼 눌렀을 때에야 업데이트 된 상태를 확인가능
+        // 값이 들어오긴 함 -> 마지막 8번 누르고 count가 8이되니까 조건문으로 결과보기 버튼 구현할 것.
+        // 8번 답 누르면 결과보기 버튼 나오고(8번까지 저장된 상태) , 결과보기 버튼 누르면 그대로 전송 or 결과 계산
+
+        setAnswerA(answerBoxA[count]);
+        setAnswerB(answerBoxB[count]);
+
+        setQuestion(questionBox[count]);
+        setIsClickB(true);
+        count++;
+        if (count === 8) {
+            setAnswerA(answerBoxA[6]);
+            setAnswerB(answerBoxB[6]);
+            setQuestion(questionBox[6]);
+        }
+        console.log(array);
+    };
+    return (
+        <div>
+            <StyledContainer className="container">
+                <Wrapper className="wrapper">
+                    <Counter style={{ backgroundColor: color }} />
+                    <QBox className="box_question">
+                        <div>{question}</div>
+                    </QBox>
+                    <Grid>
+                        <Box
+                            className="box_answer_1"
+                            handleClick={handleAnswerA}
+                            text={answerA}
+                        ></Box>
+                        <Box
+                            className="box_answer_2"
+                            handleClick={handleAnswerB}
+                            text={answerB}
+                        />
+                    </Grid>
+                    {count === 8 ? (
+                        <div
+                            style={{
+                                width: 500,
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <button
+                                style={{
+                                    width: 200,
+                                    height: 50,
+                                }}
+                            >
+                                결과보기
+                            </button>
+                        </div>
+                    ) : (
+                        ''
+                    )}
+                </Wrapper>
+            </StyledContainer>
+        </div>
+    );
+
 }
 export default Container;

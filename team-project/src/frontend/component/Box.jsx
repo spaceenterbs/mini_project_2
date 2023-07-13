@@ -1,3 +1,5 @@
+
+import styled from 'styled-components';
 function Box({ text, handleClick }) {
   return (
     <div>
@@ -21,5 +23,8 @@ function Box({ text, handleClick }) {
       </div>
     </div>
   );
+
+
+
 }
 export default Box;
