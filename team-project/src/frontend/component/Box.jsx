@@ -1,26 +1,25 @@
 function Box({ text, handleClick }) {
-    return (
-        <div>
-            <div>
-                <button
-                    style={{
-                        all: 'unset',
+  return (
+    <div>
+      <div>
+        <button
+          style={{
+            all: "unset",
 
-                        borderRadius: '10px',
-                        height: '50px',
-                        width: '220px',
-                        padding: '0 10px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        marginBottom: '10px',
-                        backgroundColor: 'white',
-                    }}
-                    onClick={handleClick}
-                >
-                    {text}
-                </button>
-            </div>
-        </div>
-    );
+            borderRadius: "10px",
+            height: "auto",
+            width: "480px",
+            padding: "0 10px",
+            textAlign: "center",
+            marginBottom: "20px",
+            backgroundColor: "white",
+          }}
+          onClick={handleClick}
+        >
+          {text}
+        </button>
+      </div>
+    </div>
+  );
 }
 export default Box;
