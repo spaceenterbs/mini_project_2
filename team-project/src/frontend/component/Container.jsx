@@ -39,20 +39,31 @@ const Grid = styled.div`
 `;
 let count = 0;
 function Container(props) {
+    const questionBox = [
+        '질문2',
+        '질문3',
+        '질문4',
+        '질문5',
+        '질문6',
+        '질문7',
+        '질문8',
+    ];
     const answerBoxA = ['a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8'];
     const answerBoxB = ['b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8'];
     const answerBoxC = ['c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8'];
     const answerBoxD = ['d2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
+    const [question, setQuestion] = useState('질문1');
     const [answerA, setAnswerA] = useState('a1');
-    const [answerB, setAnswerB] = useState('b2');
-    const [answerC, setAnswerC] = useState('c3');
-    const [answerD, setAnswerD] = useState('d4');
+    const [answerB, setAnswerB] = useState('b1');
+    const [answerC, setAnswerC] = useState('c1');
+    const [answerD, setAnswerD] = useState('d1');
 
     const handleAnswer = () => {
         setAnswerA(answerBoxA[count]);
         setAnswerB(answerBoxB[count]);
         setAnswerC(answerBoxC[count]);
         setAnswerD(answerBoxD[count]);
+        setQuestion(questionBox[count]);
         count++;
     };
     return (
@@ -60,7 +71,7 @@ function Container(props) {
             <StyledContainer className="container">
                 <Wrapper className="wrapper">
                     <QBox className="box_question">
-                        <div>질문 입력란입니다</div>
+                        <div>{question}</div>
                     </QBox>
                     <Grid>
                         <Box
