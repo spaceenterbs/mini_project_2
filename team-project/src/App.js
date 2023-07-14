@@ -1,5 +1,5 @@
-import logo from "./logo.svg";
-import "./App.css";
+import logo from './logo.svg';
+import './App.css';
 
 import GlobalStyles from "./GlobalStyles"; //전역에 css 적용하는 js 컴포넌트
 import { useState, useEffect } from "react";
@@ -25,6 +25,5 @@ function App(props) {
           </BrowserRouter> */}
       </div>
   );
-}
 
-export default App;
+
