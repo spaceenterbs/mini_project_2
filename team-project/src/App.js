@@ -7,6 +7,7 @@ import Container from "./frontend/component/Container";
 import Start from "./frontend/startpage/Start";
 import Result from "./frontend/resultpage/Result";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Progress from './frontend/component/Progress';
 
 
 
@@ -14,14 +15,14 @@ function App(props) {
   return (
       <div>
           <GlobalStyles />
-          {/* <Result /> */}
-          <BrowserRouter>
+          <Progress />
+          {/* <BrowserRouter>
               <Routes>
                   <Route index element={<Start />} />
                   <Route path="Container" element={<Container />} />
                   <Route path="Result" element={<Result />} />
               </Routes>
-          </BrowserRouter>
+          </BrowserRouter> */}
       </div>
   );
 }

@@ -1,7 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
 import Box from './Box';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+// import Progress from './Progress';
 
 const StyledContainer = styled.div`
     box-sizing: border-box;
@@ -195,6 +196,9 @@ function Container(props) {
             console.log(array);
         }, 500);
     };
+
+    const navigate = useNavigate();
+    
     const handleResult = () => {
         setAnswerA(answerBoxA[11].answer);
         setAnswerB(answerBoxB[11].answer);
@@ -206,7 +210,11 @@ function Container(props) {
             setResult((prevArray) => [Object.keys(array[i]), ...prevArray]);
         } // key 값 : 담긴 데이터의 mbti => 결과값 추출하기
         console.log(result);
+        setTimeout(() => {
+            navigate('/Result');
+        },2000);
     };
+
     return (
         <div>
             <StyledContainer className="container">
@@ -216,7 +224,7 @@ function Container(props) {
                             <p>Loading...</p>
                         </div>
                     ) : (
-                        <div>
+                            <div>
                             <QBox className="box_question">
                                 <div>{question}</div>
                             </QBox>
