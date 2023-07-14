@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
 import Box from './Box';
+// import { useNavigate } from 'react-router-dom';
 
 const StyledContainer = styled.div`
     box-sizing: border-box;
