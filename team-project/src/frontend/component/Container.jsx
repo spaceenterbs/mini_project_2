@@ -120,8 +120,6 @@ function Container(props) {
     const [answerB, setAnswerB] = useState('');
     const [array, setArray] = useState([]);
     const [count, setCount] = useState(0);
-
-    const [color, setColor] = useState('none');
     const [isClick, setIsClick] = useState(false);
     useEffect(() => {
         setAnswerA(answerBoxA[count].answer);
@@ -130,13 +128,16 @@ function Container(props) {
     }, []);
 
     const handleAnswerA = () => {
-        if (count < 11) setIsClick(true);
+        if (count < 11) {
+            setIsClick(true);
+            console.log('1');
+        }
         setTimeout(() => {
             setArray((prevArray) => [
                 { [answerBoxA[count].mbti]: answerA },
                 ...prevArray,
             ]);
-            console.log(count - 1);
+            console.log('2');
             if (count === 11) {
                 setAnswerA(answerBoxA[11].answer);
                 setAnswerB(answerBoxB[11].answer);
@@ -148,17 +149,17 @@ function Container(props) {
                 setAnswerB(answerBoxB[count + 1].answer);
                 setQuestion(questionBox[count + 1]);
                 setIsClick(false);
-                // count++; //얘랑
                 setCount(count + 1);
-                console.log(array); //얘를 먼저 하는듯. set 함수는 나중에
+                console.log('3');
             }
-
-            // count++;
-            // console.log(array);
+            console.log('4');
+            console.log(array);
         }, 500);
     };
     const handleAnswerB = () => {
-        if (count < 11) setIsClick(true);
+        if (count < 11) {
+            setIsClick(true);
+        }
         setTimeout(() => {
             setArray((prevArray) => [
                 { [answerBoxB[count].mbti]: answerB },
@@ -167,6 +168,7 @@ function Container(props) {
             // 상태 업데이트를 한 직후에 상태를 확인할 수 없다. 그래서 다음 버튼 눌렀을 때에야 업데이트 된 상태를 확인가능
             // 값이 들어오긴 함 -> 마지막 8번 누르고 count가 8이되니까 조건문으로 결과보기 버튼 구현할 것.
             // 8번 답 누르면 결과보기 버튼 나오고(8번까지 저장된 상태) , 결과보기 버튼 누르면 그대로 전송 or 결과 계산
+            console.log('1');
             if (count === 11) {
                 setAnswerA(answerBoxA[11].answer);
                 setAnswerB(answerBoxB[11].answer);
@@ -178,12 +180,18 @@ function Container(props) {
                 setQuestion(questionBox[count + 1]);
                 setIsClick(false);
                 setCount(count + 1);
+                console.log('2');
             }
-
+            console.log('3');
             console.log(array);
         }, 500);
     };
-
+    const handleResult = () => {
+        setAnswerA(answerBoxA[11].answer);
+        setAnswerB(answerBoxB[11].answer);
+        setQuestion(questionBox[11]);
+        console.log(array);
+    };
     return (
         <div>
             <StyledContainer className="container">
@@ -216,6 +224,7 @@ function Container(props) {
                                     width: 200,
                                     height: 50,
                                 }}
+                                onClick={handleResult}
                             >
                                 결과보기
                             </button>
