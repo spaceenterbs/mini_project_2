@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
 import Box from './Box';
 import { useNavigate } from 'react-router-dom';
+import Progress from './Progress';
 // import Progress from './Progress';
 
 const StyledContainer = styled.div`
@@ -20,7 +21,8 @@ const StyledContainer = styled.div`
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 60px;
+    padding: auto;
+
     // border: 1px solid black;
     margin: 0 auto;
     max-width: 1200px;
@@ -125,6 +127,7 @@ function Container(props) {
     const [isClick, setIsClick] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [result, setResult] = useState([]);
+    const [progressCount, setProgressCount] = useState(0);
     useEffect(() => {
         setAnswerA(answerBoxA[count].answer);
         setAnswerB(answerBoxB[count].answer);
@@ -132,6 +135,7 @@ function Container(props) {
     }, []);
 
     const handleAnswerA = () => {
+        setProgressCount(progressCount + 1);
         if (count < 11) {
             setIsClick(true);
             console.log('1');
@@ -166,6 +170,7 @@ function Container(props) {
         console.log('2');
     };
     const handleAnswerB = () => {
+        setProgressCount(progressCount + 1);
         if (count < 11) {
             setIsClick(true);
         }
@@ -198,7 +203,7 @@ function Container(props) {
     };
 
     const navigate = useNavigate();
-    
+
     const handleResult = () => {
         setAnswerA(answerBoxA[11].answer);
         setAnswerB(answerBoxB[11].answer);
@@ -210,21 +215,23 @@ function Container(props) {
             setResult((prevArray) => [Object.keys(array[i]), ...prevArray]);
         } // key 값 : 담긴 데이터의 mbti => 결과값 추출하기
         console.log(result);
+        const data = '산이 바보';
         setTimeout(() => {
-            navigate('/Result');
-        },2000);
+            navigate('/result', { state: { data } });
+        }, 2000);
     };
 
     return (
         <div>
             <StyledContainer className="container">
                 <Wrapper className="wrapper">
+                    <Progress progressCount={progressCount} />
                     {isLoading ? (
                         <div>
                             <p>Loading...</p>
                         </div>
                     ) : (
-                            <div>
+                        <div>
                             <QBox className="box_question">
                                 <div>{question}</div>
                             </QBox>

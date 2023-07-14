@@ -17,12 +17,11 @@ function App(props) {
       <BrowserRouter>
         <Routes>
           <Route index element={<Start />} />
-          <Route path="Container" element={<Container />} />
-          <Route path="Result" element={<Result />} />
+          <Route path="container" element={<Container />} />
+          <Route path="result" element={<Result />} />
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
-
 export default App;
