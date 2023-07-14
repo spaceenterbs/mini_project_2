@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 
-const StyledResult = styled.div
-`
+const StyledResult = styled.div`
     width: 100vw;
     height: 100vh;
     box-sizing: border-box;
@@ -11,8 +11,7 @@ const StyledResult = styled.div
     justify-content: center;
     margin: 0 auto;
 `;
-const LastBox = styled.div
-`
+const LastBox = styled.div`
     display: flex;
     flex-direction: column;
     padding: 60px;
@@ -20,8 +19,7 @@ const LastBox = styled.div
     margin: 0 auto;
     max-width: 1200px;
 `;
-const TadaBox = styled.div
-`
+const TadaBox = styled.div`
     width: 500px;
     height: 300px;
     display: flex;
@@ -44,11 +42,14 @@ const TextBox = styled.div`
     border-radius: 10px;
 `;
 function Result(props) {
+    const location = useLocation();
+    const { data } = location.state;
+
     return (
         <div>
             <StyledResult className="result">
                 <LastBox className="last">
-                    <TadaBox className="tada">당신은 바보입니다 !</TadaBox>
+                    <TadaBox className="tada">{data}</TadaBox>
                     <TextBox className="text">
                         이렇게 하는게 맞는건지 1도 몰으겠습니다.<br></br>
                         난리난리 난리나<br></br>
