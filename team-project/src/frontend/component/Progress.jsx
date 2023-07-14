@@ -7,10 +7,10 @@ function Progress({ progressCount }) {
     const [count, setCount] = useState(progressCount);
     useEffect(() => {
         add_count();
-    }, []);
+    });
     function add_count() {
         if (count === 12) {
-            setCount(0);
+            setCount(12);
         } else {
             setCount(progressCount + 1);
         }
