@@ -121,6 +121,8 @@ function Container(props) {
     const [array, setArray] = useState([]);
     const [count, setCount] = useState(0);
     const [isClick, setIsClick] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [result, setResult] = useState([]);
     useEffect(() => {
         setAnswerA(answerBoxA[count].answer);
         setAnswerB(answerBoxB[count].answer);
@@ -133,16 +135,19 @@ function Container(props) {
             console.log('1');
         }
         setTimeout(() => {
-            setArray((prevArray) => [
-                { [answerBoxA[count].mbti]: answerA },
-                ...prevArray,
-            ]);
-            console.log('2');
+            if (count < 12) {
+                setArray((prevArray) => [
+                    { [answerBoxA[count].mbti]: answerA },
+                    ...prevArray,
+                ]);
+            }
+            console.log('3');
             if (count === 11) {
                 setAnswerA(answerBoxA[11].answer);
                 setAnswerB(answerBoxB[11].answer);
                 setQuestion(questionBox[11]);
                 setCount(count + 1);
+            } else if (count > 11) {
                 return;
             } else {
                 setAnswerA(answerBoxA[count + 1].answer);
@@ -150,39 +155,42 @@ function Container(props) {
                 setQuestion(questionBox[count + 1]);
                 setIsClick(false);
                 setCount(count + 1);
-                console.log('3');
+                console.log('4');
+                console.log('카운트', count);
             }
-            console.log('4');
+            console.log('5');
             console.log(array);
         }, 500);
+        console.log('2');
     };
     const handleAnswerB = () => {
         if (count < 11) {
             setIsClick(true);
         }
         setTimeout(() => {
-            setArray((prevArray) => [
-                { [answerBoxB[count].mbti]: answerB },
-                ...prevArray,
-            ]); // setState함수인 setArray는 비동기적으로 작동하기 때문에
-            // 상태 업데이트를 한 직후에 상태를 확인할 수 없다. 그래서 다음 버튼 눌렀을 때에야 업데이트 된 상태를 확인가능
-            // 값이 들어오긴 함 -> 마지막 8번 누르고 count가 8이되니까 조건문으로 결과보기 버튼 구현할 것.
-            // 8번 답 누르면 결과보기 버튼 나오고(8번까지 저장된 상태) , 결과보기 버튼 누르면 그대로 전송 or 결과 계산
-            console.log('1');
+            if (count < 12) {
+                setArray((prevArray) => [
+                    { [answerBoxB[count].mbti]: answerB },
+                    ...prevArray,
+                ]); // setState함수인 setArray는 비동기적으로 작동하기 때문에
+                // 상태 업데이트를 한 직후에 상태를 확인할 수 없다. 그래서 다음 버튼 눌렀을 때에야 업데이트 된 상태를 확인가능
+                // 값이 들어오긴 함 -> 마지막 8번 누르고 count가 8이되니까 조건문으로 결과보기 버튼 구현할 것.
+                // 8번 답 누르면 결과보기 버튼 나오고(8번까지 저장된 상태) , 결과보기 버튼 누르면 그대로 전송 or 결과 계산
+            }
             if (count === 11) {
                 setAnswerA(answerBoxA[11].answer);
                 setAnswerB(answerBoxB[11].answer);
                 setQuestion(questionBox[11]);
                 setCount(count + 1);
+            } else if (count > 11) {
+                return;
             } else {
                 setAnswerA(answerBoxA[count + 1].answer);
                 setAnswerB(answerBoxB[count + 1].answer);
                 setQuestion(questionBox[count + 1]);
                 setIsClick(false);
                 setCount(count + 1);
-                console.log('2');
             }
-            console.log('3');
             console.log(array);
         }, 500);
     };
@@ -190,47 +198,63 @@ function Container(props) {
         setAnswerA(answerBoxA[11].answer);
         setAnswerB(answerBoxB[11].answer);
         setQuestion(questionBox[11]);
-        console.log(array);
+        console.log('데이터', array);
+        setIsLoading(true);
+        for (let i = 0; i < array.length; i++) {
+            console.log(Object.keys(array[i]));
+            setResult((prevArray) => [Object.keys(array[i]), ...prevArray]);
+        } // key 값 : 담긴 데이터의 mbti => 결과값 추출하기
+        console.log(result);
     };
     return (
         <div>
             <StyledContainer className="container">
                 <Wrapper className="wrapper">
-                    <QBox className="box_question">
-                        <div>{question}</div>
-                    </QBox>
-                    <Grid className={`grid ${isClick ? 'click' : 'next'}`}>
-                        <Box
-                            className="box_answer_1"
-                            handleClick={handleAnswerA}
-                            text={answerA}
-                        ></Box>
-                        <Box
-                            className="box_answer_2"
-                            handleClick={handleAnswerB}
-                            text={answerB}
-                        />
-                    </Grid>
-                    {count === 12 ? (
-                        <div
-                            style={{
-                                width: 500,
-                                display: 'flex',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <button
-                                style={{
-                                    width: 200,
-                                    height: 50,
-                                }}
-                                onClick={handleResult}
-                            >
-                                결과보기
-                            </button>
+                    {isLoading ? (
+                        <div>
+                            <p>Loading...</p>
                         </div>
                     ) : (
-                        ''
+                        <div>
+                            <QBox className="box_question">
+                                <div>{question}</div>
+                            </QBox>
+                            <Grid
+                                className={`grid ${isClick ? 'click' : 'next'}`}
+                            >
+                                <Box
+                                    className="box_answer_1"
+                                    handleClick={handleAnswerA}
+                                    text={answerA}
+                                ></Box>
+                                <Box
+                                    className="box_answer_2"
+                                    handleClick={handleAnswerB}
+                                    text={answerB}
+                                />
+                            </Grid>
+                            {count === 12 ? (
+                                <div
+                                    style={{
+                                        width: 500,
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    <button
+                                        style={{
+                                            width: 200,
+                                            height: 50,
+                                        }}
+                                        onClick={handleResult}
+                                    >
+                                        결과보기
+                                    </button>
+                                </div>
+                            ) : (
+                                ''
+                            )}
+                        </div>
                     )}
                 </Wrapper>
             </StyledContainer>
