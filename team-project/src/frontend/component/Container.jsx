@@ -249,11 +249,25 @@ function Container(props) {
         if (updatedResult.filter((item) => item === 'J').length >= 2) {
             result.push('J');
         }
-
-        const data = result;
+        console.log(result);
+        const data = result.join('');
         setTimeout(() => {
             navigate('/result', { state: { data } });
-        }, 2000);
+        }, 3000);
+        const postData = {
+            choices: Object.keys(array),
+            contents: Object.values(array),
+        };
+        const postContents = async () => {
+            axios.post(
+                'http://127.0.0.1:8000/admin/mbti_get/answer/',
+                postData
+            );
+        };
+        const postResult = async () => {
+            axios.post('http://127.0.0.1:8000/admin/mbti_get/result/'),
+                { mbti_result: data };
+        };
     };
 
     return (
