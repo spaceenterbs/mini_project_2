@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
 import Box from './Box';
 import { useNavigate } from 'react-router-dom';
+import Progress from './Progress';
 // import Progress from './Progress';
 
 const StyledContainer = styled.div`
@@ -20,7 +21,8 @@ const StyledContainer = styled.div`
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 60px;
+    padding: auto;
+
     // border: 1px solid black;
     margin: 0 auto;
     max-width: 1200px;
@@ -93,8 +95,12 @@ function Container(props) {
         },
         { mbti: 'E', answer: '아야! (내가 밟혔다는 사실을 어떻게든 티낸다)' },
         { mbti: 'T', answer: '일단 내려놔.' },
+        { mbti: 'T', answer: '일단 내려놔.' },
         { mbti: 'F', answer: '아.. 저 직원 진짜 힘들겠다; ' },
         { mbti: 'P', answer: '발길이 닿는대로 움직인다.' },
+        { mbti: 'N', answer: '뭐지.. 저 사람..?(결혼까지 생각한다..)' },
+        { mbti: 'I', answer: '설렁 설렁 참여하거나 구경한다' },
+        { mbti: 'J', answer: '사려고 했던 물건들' },
         { mbti: 'N', answer: '뭐지.. 저 사람..?(결혼까지 생각한다..)' },
         { mbti: 'I', answer: '설렁 설렁 참여하거나 구경한다' },
         { mbti: 'J', answer: '사려고 했던 물건들' },
@@ -112,7 +118,10 @@ function Container(props) {
         { mbti: 'F', answer: '귀여운데?? 당장 구매해버려~~!!' },
         { mbti: 'T', answer: '엇 저 사람들 왜 싸우지??' },
         { mbti: 'J', answer: '1층부터 정해진 방향대로 움직인다. ' },
-        { mbti: 'S', answer: '아무렇지 않게 내가 고르려던 걸 골라서 계산하러 간다.' },
+        {
+            mbti: 'S',
+            answer: '아무렇지 않게 내가 고르려던 걸 골라서 계산하러 간다.',
+        },
         { mbti: 'E', answer: '누구보다 열심히 참여해서 경품을 탄다' },
         { mbti: 'P', answer: '맘에 들었던 물건들' },
         { mbti: 'I', answer: '여긴 나만 알고 싶어! 다이어리에 끄적여놓는다.' },
@@ -125,6 +134,7 @@ function Container(props) {
     const [isClick, setIsClick] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [result, setResult] = useState([]);
+    const [progressCount, setProgressCount] = useState(0);
     useEffect(() => {
         setAnswerA(answerBoxA[count].answer);
         setAnswerB(answerBoxB[count].answer);
@@ -132,6 +142,7 @@ function Container(props) {
     }, []);
 
     const handleAnswerA = () => {
+        setProgressCount(progressCount + 1);
         if (count < 11) {
             setIsClick(true);
             console.log('1');
@@ -166,6 +177,7 @@ function Container(props) {
         console.log('2');
     };
     const handleAnswerB = () => {
+        setProgressCount(progressCount + 1);
         if (count < 11) {
             setIsClick(true);
         }
@@ -198,33 +210,65 @@ function Container(props) {
     };
 
     const navigate = useNavigate();
-    
+
     const handleResult = () => {
         setAnswerA(answerBoxA[11].answer);
         setAnswerB(answerBoxB[11].answer);
         setQuestion(questionBox[11]);
         console.log('데이터', array);
         setIsLoading(true);
+        const updatedResult = [];
         for (let i = 0; i < array.length; i++) {
-            console.log(Object.keys(array[i]));
-            setResult((prevArray) => [Object.keys(array[i]), ...prevArray]);
+            const keys = Object.keys(array[i]);
+            updatedResult.push(...keys);
+            //원래는 result라는 빈 배열을 state로 관리하여 key값들을 집어넣으려 하였으나
+            //아무리 해도 값이 들어오지 않아서 그냥 쌩으로 집어넣음
         } // key 값 : 담긴 데이터의 mbti => 결과값 추출하기
-        console.log(result);
+
+        // setResult((prev) => [...updatedResult, ...prev]);//????작동 안 함.
+        console.log(updatedResult);
+        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
+            setResult('E');
+        }
+        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
+            setResult('I');
+        }
+        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
+            setResult('N');
+        }
+        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
+            setResult('S');
+        }
+        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
+            setResult('F');
+        }
+        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
+            setResult('T');
+        }
+        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
+            setResult('P');
+        }
+        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
+            setResult('J');
+        }
+
+        const data = '산이 바보';
         setTimeout(() => {
-            navigate('/Result');
-        },2000);
+            navigate('/result', { state: { data } });
+        }, 2000);
     };
 
     return (
         <div>
             <StyledContainer className="container">
                 <Wrapper className="wrapper">
+                    <Progress progressCount={progressCount} />
                     {isLoading ? (
                         <div>
                             <p>Loading...</p>
                         </div>
                     ) : (
-                            <div>
+                        <div>
                             <QBox className="box_question">
                                 <div>{question}</div>
                             </QBox>

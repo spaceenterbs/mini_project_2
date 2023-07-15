@@ -1,24 +1,26 @@
 // import logo from './logo.svg';
 // import './App.css';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function Progress() {
-    const [count, setCount] = useState(0);
-
+function Progress({ progressCount }) {
+    const [count, setCount] = useState(progressCount);
+    useEffect(() => {
+        add_count();
+    });
     function add_count() {
         if (count === 12) {
-            setCount(0);
+            setCount(12);
         } else {
-            setCount(count + 1);
+            setCount(progressCount + 1);
         }
     }
 
     return (
         <Container
-            onClick={() => {
-                add_count();
-            }}
+        // onClick={() => {
+        //     add_count();
+        // }}
         >
             {/*%로 부모넓이의 1/5 씩 넓어짐*/}
             <Go width={(count / 12) * 100 + '%'} />
