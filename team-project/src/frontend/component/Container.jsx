@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
 import Box from './Box';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Progress from './Progress';
 // import Progress from './Progress';
 import './Progress.css';
@@ -265,8 +266,9 @@ function Container(props) {
             );
         };
         const postResult = async () => {
-            axios.post('http://127.0.0.1:8000/admin/mbti_get/result/'),
-                { mbti_result: data };
+            axios.post('http://127.0.0.1:8000/admin/mbti_get/result/', {
+                mbti_result: data,
+            });
         };
     };
 
