@@ -61,10 +61,10 @@ const Grid = styled.div`
   width: 500px;
 
   &.click {
-    animation: ${fadeOutAnimation} 0.6s ease-out;
+    animation: ${fadeOutAnimation} 0.4s ease-out;
   }
   &.next {
-    animation: ${fadeInAnimation} 0.6s ease-in;
+    animation: ${fadeInAnimation} 0.4s ease-in;
   }
 `;
 
@@ -131,8 +131,8 @@ function Container(props) {
   const [count, setCount] = useState(0);
   const [isClick, setIsClick] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState([]);
-  const [progressCount, setProgressCount] = useState(0);
+  // const [result, setResult] = useState([]);
+  const [clickedIndex, setClickedIndex] = useState(-1);
   useEffect(() => {
     setAnswerA(answerBoxA[count].answer);
     setAnswerB(answerBoxB[count].answer);
@@ -140,7 +140,7 @@ function Container(props) {
   }, []);
 
   const handleAnswerA = () => {
-    setProgressCount(progressCount + 1);
+    setClickedIndex(clickedIndex + 1);
     if (count < 11) {
       setIsClick(true);
       console.log("1");
@@ -171,11 +171,11 @@ function Container(props) {
       }
       console.log("5");
       console.log(array);
-    }, 500);
+    }, 300);
     console.log("2");
   };
   const handleAnswerB = () => {
-    setProgressCount(progressCount + 1);
+    setClickedIndex(clickedIndex + 1);
     if (count < 11) {
       setIsClick(true);
     }
@@ -204,7 +204,7 @@ function Container(props) {
         setCount(count + 1);
       }
       console.log(array);
-    }, 500);
+    }, 300);
   };
 
   const navigate = useNavigate();
@@ -216,6 +216,7 @@ function Container(props) {
     console.log("데이터", array);
     setIsLoading(true);
     const updatedResult = [];
+    const result = [];
     for (let i = 0; i < array.length; i++) {
       const keys = Object.keys(array[i]);
       updatedResult.push(...keys);
@@ -225,32 +226,32 @@ function Container(props) {
 
     // setResult((prev) => [...updatedResult, ...prev]);//????작동 안 함.
     console.log(updatedResult);
-    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
-      setResult("E");
+    if (updatedResult.filter((item) => item === "E").length === (2 || 3)) {
+      result.push("E");
     }
-    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
-      setResult("I");
+    if (updatedResult.filter((item) => item === "I").length === (2 || 3)) {
+      result.push("I");
     }
-    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
-      setResult("N");
+    if (updatedResult.filter((item) => item === "N").length === (2 || 3)) {
+      result.push("N");
     }
-    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
-      setResult("S");
+    if (updatedResult.filter((item) => item === "S").length === (2 || 3)) {
+      result.push("S");
     }
-    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
-      setResult("F");
+    if (updatedResult.filter((item) => item === "F").length === (2 || 3)) {
+      result.push("F");
     }
-    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
-      setResult("T");
+    if (updatedResult.filter((item) => item === "T").length === (2 || 3)) {
+      result.push("T");
     }
-    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
-      setResult("P");
+    if (updatedResult.filter((item) => item === "P").length === (2 || 3)) {
+      result.push("P");
     }
-    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
-      setResult("J");
+    if (updatedResult.filter((item) => item === "J").length === (2 || 3)) {
+      result.push("J");
     }
 
-    const data = "산이 바보";
+    const data = result;
     setTimeout(() => {
       navigate("/result", { state: { data } });
     }, 2000);
@@ -259,24 +260,48 @@ function Container(props) {
   return (
     <div>
       <StyledContainer className="container">
-        <div>
-          <div class="border"></div>
-          <div class="galands">
-            <div class="g1"></div>
-            <div class="g2"></div>
-            <div class="g3"></div>
-            <div class="g4"></div>
-            <div class="g5"></div>
-            <div class="g6"></div>
-            <div class="g7"></div>
-            <div class="g8"></div>
-            <div class="g9"></div>
-            <div class="g10"></div>
-            <div class="g11"></div>
-            <div class="g12"></div>
-          </div>
-        </div>
         <Wrapper className="wrapper">
+          <div>
+            <div class="border"></div>
+            <div class="galands">
+              <div
+                class={`g1 basic ${0 >= 0 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+              <div
+                class={`g2 basic ${0 >= 1 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+              <div
+                class={`g3 basic ${0 >= 2 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+              <div
+                class={`g4 basic ${0 >= 3 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+              <div
+                class={`g5 basic ${0 >= 4 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+              <div
+                class={`g6 basic ${0 >= 5 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+              <div
+                class={`g7 basic ${0 >= 6 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+              <div
+                class={`g8 basic ${0 >= 7 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+              <div
+                class={`g9 basic ${0 >= 8 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+              <div
+                class={`g10 basic ${0 >= 9 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+              <div
+                class={`g11 basic ${0 >= 10 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+              <div
+                class={`g12 basic ${0 >= 11 - clickedIndex ? "" : "opacity"}`}
+              ></div>
+            </div>
+          </div>
           {/* <Progress progressCount={progressCount} /> */}
           {isLoading ? (
             <div>
