@@ -1,0 +1,15 @@
+.border {
+  /* border: 1px solid black; */
+  border-bottom: 1px solid beige;
+  width: 1090px;
+  height: 10px;
+}
+
+.galands {
+  width: 0;
+  height: 0;
+  border-bottom: 30px solid transparent;
+  border-top: 80px solid #fafad2;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+}
