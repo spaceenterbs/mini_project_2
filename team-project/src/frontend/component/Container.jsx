@@ -1,42 +1,43 @@
-import styled, { keyframes } from 'styled-components';
-import { useEffect, useState } from 'react';
-import Box from './Box';
-import { useNavigate } from 'react-router-dom';
-import Progress from './Progress';
+import styled, { keyframes } from "styled-components";
+import { useEffect, useState } from "react";
+import Box from "./Box";
+import { useNavigate } from "react-router-dom";
+import Progress from "./Progress";
 // import Progress from './Progress';
+import "./Progress.css";
 
 const StyledContainer = styled.div`
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    height: 100vh;
-    padding: 150px 0;
-    background-color: #d88a49;
-    font-family: 'UhBeemysen';
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 2;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  height: 100vh;
+  padding: 50px 0;
+  background-color: #d88a49;
+  font-family: "UhBeemysen";
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 2;
 `;
 const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: auto;
+  display: flex;
+  flex-direction: column;
+  padding: auto;
 
-    // border: 1px solid black;
-    margin: 0 auto;
-    max-width: 1200px;
+  border: 1px solid black;
+  margin: 0 auto;
+  max-width: 1200px;
 `;
 
 const QBox = styled.div`
-    width: 500px;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 50px;
-    padding: 30px;
-    background-color: white;
-    border-radius: 10px;
+  width: 500px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 10px;
 `;
 const fadeOutAnimation = keyframes`
 from {
@@ -55,19 +56,20 @@ to {
 }
 `;
 const Grid = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 500px;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
 
-    &.click {
-        animation: ${fadeOutAnimation} 0.6s ease-out;
-    }
-    &.next {
-        animation: ${fadeInAnimation} 0.6s ease-in;
-    }
+  &.click {
+    animation: ${fadeOutAnimation} 0.6s ease-out;
+  }
+  &.next {
+    animation: ${fadeInAnimation} 0.6s ease-in;
+  }
 `;
 
 function Container(props) {
+
     const questionBox = [
         '오늘은 오랜만에 쉬는 날! 머리가 조금 복잡해져서 밖으로 나가려고 하는데, 평일에 어떤 고민을 해왔을까?',
         '오늘은 힐링을 위해 소품샵에 가려고 외출을 하였다. 소품샵을 가는 길에 언젠가 한번 가보려고 했던 가게가 보인다. 이 때, 당신에게 드는 생각은?',
@@ -141,177 +143,192 @@ function Container(props) {
         setQuestion(questionBox[count]);
     }, []);
 
-    const handleAnswerA = () => {
-        setProgressCount(progressCount + 1);
-        if (count < 11) {
-            setIsClick(true);
-            console.log('1');
-        }
-        setTimeout(() => {
-            if (count < 12) {
-                setArray((prevArray) => [
-                    { [answerBoxA[count].mbti]: answerA },
-                    ...prevArray,
-                ]);
-            }
-            console.log('3');
-            if (count === 11) {
-                setAnswerA(answerBoxA[11].answer);
-                setAnswerB(answerBoxB[11].answer);
-                setQuestion(questionBox[11]);
-                setCount(count + 1);
-            } else if (count > 11) {
-                return;
-            } else {
-                setAnswerA(answerBoxA[count + 1].answer);
-                setAnswerB(answerBoxB[count + 1].answer);
-                setQuestion(questionBox[count + 1]);
-                setIsClick(false);
-                setCount(count + 1);
-                console.log('4');
-                console.log('카운트', count);
-            }
-            console.log('5');
-            console.log(array);
-        }, 500);
-        console.log('2');
-    };
-    const handleAnswerB = () => {
-        setProgressCount(progressCount + 1);
-        if (count < 11) {
-            setIsClick(true);
-        }
-        setTimeout(() => {
-            if (count < 12) {
-                setArray((prevArray) => [
-                    { [answerBoxB[count].mbti]: answerB },
-                    ...prevArray,
-                ]); // setState함수인 setArray는 비동기적으로 작동하기 때문에
-                // 상태 업데이트를 한 직후에 상태를 확인할 수 없다. 그래서 다음 버튼 눌렀을 때에야 업데이트 된 상태를 확인가능
-                // 값이 들어오긴 함 -> 마지막 8번 누르고 count가 8이되니까 조건문으로 결과보기 버튼 구현할 것.
-                // 8번 답 누르면 결과보기 버튼 나오고(8번까지 저장된 상태) , 결과보기 버튼 누르면 그대로 전송 or 결과 계산
-            }
-            if (count === 11) {
-                setAnswerA(answerBoxA[11].answer);
-                setAnswerB(answerBoxB[11].answer);
-                setQuestion(questionBox[11]);
-                setCount(count + 1);
-            } else if (count > 11) {
-                return;
-            } else {
-                setAnswerA(answerBoxA[count + 1].answer);
-                setAnswerB(answerBoxB[count + 1].answer);
-                setQuestion(questionBox[count + 1]);
-                setIsClick(false);
-                setCount(count + 1);
-            }
-            console.log(array);
-        }, 500);
-    };
-
-    const navigate = useNavigate();
-
-    const handleResult = () => {
+  const handleAnswerA = () => {
+    setProgressCount(progressCount + 1);
+    if (count < 11) {
+      setIsClick(true);
+      console.log("1");
+    }
+    setTimeout(() => {
+      if (count < 12) {
+        setArray((prevArray) => [
+          { [answerBoxA[count].mbti]: answerA },
+          ...prevArray,
+        ]);
+      }
+      console.log("3");
+      if (count === 11) {
         setAnswerA(answerBoxA[11].answer);
         setAnswerB(answerBoxB[11].answer);
         setQuestion(questionBox[11]);
-        console.log('데이터', array);
-        setIsLoading(true);
-        const updatedResult = [];
-        for (let i = 0; i < array.length; i++) {
-            const keys = Object.keys(array[i]);
-            updatedResult.push(...keys);
-            //원래는 result라는 빈 배열을 state로 관리하여 key값들을 집어넣으려 하였으나
-            //아무리 해도 값이 들어오지 않아서 그냥 쌩으로 집어넣음
-        } // key 값 : 담긴 데이터의 mbti => 결과값 추출하기
+        setCount(count + 1);
+      } else if (count > 11) {
+        return;
+      } else {
+        setAnswerA(answerBoxA[count + 1].answer);
+        setAnswerB(answerBoxB[count + 1].answer);
+        setQuestion(questionBox[count + 1]);
+        setIsClick(false);
+        setCount(count + 1);
+        console.log("4");
+        console.log("카운트", count);
+      }
+      console.log("5");
+      console.log(array);
+    }, 500);
+    console.log("2");
+  };
+  const handleAnswerB = () => {
+    setProgressCount(progressCount + 1);
+    if (count < 11) {
+      setIsClick(true);
+    }
+    setTimeout(() => {
+      if (count < 12) {
+        setArray((prevArray) => [
+          { [answerBoxB[count].mbti]: answerB },
+          ...prevArray,
+        ]); // setState함수인 setArray는 비동기적으로 작동하기 때문에
+        // 상태 업데이트를 한 직후에 상태를 확인할 수 없다. 그래서 다음 버튼 눌렀을 때에야 업데이트 된 상태를 확인가능
+        // 값이 들어오긴 함 -> 마지막 8번 누르고 count가 8이되니까 조건문으로 결과보기 버튼 구현할 것.
+        // 8번 답 누르면 결과보기 버튼 나오고(8번까지 저장된 상태) , 결과보기 버튼 누르면 그대로 전송 or 결과 계산
+      }
+      if (count === 11) {
+        setAnswerA(answerBoxA[11].answer);
+        setAnswerB(answerBoxB[11].answer);
+        setQuestion(questionBox[11]);
+        setCount(count + 1);
+      } else if (count > 11) {
+        return;
+      } else {
+        setAnswerA(answerBoxA[count + 1].answer);
+        setAnswerB(answerBoxB[count + 1].answer);
+        setQuestion(questionBox[count + 1]);
+        setIsClick(false);
+        setCount(count + 1);
+      }
+      console.log(array);
+    }, 500);
+  };
 
-        // setResult((prev) => [...updatedResult, ...prev]);//????작동 안 함.
-        console.log(updatedResult);
-        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
-            setResult('E');
-        }
-        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
-            setResult('I');
-        }
-        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
-            setResult('N');
-        }
-        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
-            setResult('S');
-        }
-        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
-            setResult('F');
-        }
-        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
-            setResult('T');
-        }
-        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
-            setResult('P');
-        }
-        if (updatedResult.filter((item) => item === 'E').length === 2 || 3) {
-            setResult('J');
-        }
+  const navigate = useNavigate();
 
-        const data = '산이 바보';
-        setTimeout(() => {
-            navigate('/result', { state: { data } });
-        }, 2000);
-    };
+  const handleResult = () => {
+    setAnswerA(answerBoxA[11].answer);
+    setAnswerB(answerBoxB[11].answer);
+    setQuestion(questionBox[11]);
+    console.log("데이터", array);
+    setIsLoading(true);
+    const updatedResult = [];
+    for (let i = 0; i < array.length; i++) {
+      const keys = Object.keys(array[i]);
+      updatedResult.push(...keys);
+      //원래는 result라는 빈 배열을 state로 관리하여 key값들을 집어넣으려 하였으나
+      //아무리 해도 값이 들어오지 않아서 그냥 쌩으로 집어넣음
+    } // key 값 : 담긴 데이터의 mbti => 결과값 추출하기
 
-    return (
-        <div>
-            <StyledContainer className="container">
-                <Wrapper className="wrapper">
-                    <Progress progressCount={progressCount} />
-                    {isLoading ? (
-                        <div>
-                            <p>Loading...</p>
-                        </div>
-                    ) : (
-                        <div>
-                            <QBox className="box_question">
-                                <div>{question}</div>
-                            </QBox>
-                            <Grid
-                                className={`grid ${isClick ? 'click' : 'next'}`}
-                            >
-                                <Box
-                                    className="box_answer_1"
-                                    handleClick={handleAnswerA}
-                                    text={answerA}
-                                ></Box>
-                                <Box
-                                    className="box_answer_2"
-                                    handleClick={handleAnswerB}
-                                    text={answerB}
-                                />
-                            </Grid>
-                            {count === 12 ? (
-                                <div
-                                    style={{
-                                        width: 500,
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    <button
-                                        style={{
-                                            width: 200,
-                                            height: 50,
-                                        }}
-                                        onClick={handleResult}
-                                    >
-                                        결과보기
-                                    </button>
-                                </div>
-                            ) : (
-                                ''
-                            )}
-                        </div>
-                    )}
-                </Wrapper>
-            </StyledContainer>
-        </div>
-    );
+    // setResult((prev) => [...updatedResult, ...prev]);//????작동 안 함.
+    console.log(updatedResult);
+    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
+      setResult("E");
+    }
+    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
+      setResult("I");
+    }
+    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
+      setResult("N");
+    }
+    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
+      setResult("S");
+    }
+    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
+      setResult("F");
+    }
+    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
+      setResult("T");
+    }
+    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
+      setResult("P");
+    }
+    if (updatedResult.filter((item) => item === "E").length === 2 || 3) {
+      setResult("J");
+    }
+
+    const data = "산이 바보";
+    setTimeout(() => {
+      navigate("/result", { state: { data } });
+    }, 2000);
+  };
+
+  return (
+    <div>
+      <StyledContainer className="container">
+        <Wrapper className="wrapper">
+          <div>
+            <div class="border"></div>
+            <div class="galands">
+              <div class="g1"></div>
+              <div class="g2"></div>
+              <div class="g3"></div>
+              <div class="g4"></div>
+              <div class="g5"></div>
+              <div class="g6"></div>
+              <div class="g7"></div>
+              <div class="g8"></div>
+              <div class="g9"></div>
+              <div class="g10"></div>
+              <div class="g11"></div>
+              <div class="g12"></div>
+            </div>
+          </div>
+          {/* <Progress progressCount={progressCount} /> */}
+          {isLoading ? (
+            <div>
+              <p>Loading...</p>
+            </div>
+          ) : (
+            <div>
+              <QBox className="box_question">
+                <div>{question}</div>
+              </QBox>
+              <Grid className={`grid ${isClick ? "click" : "next"}`}>
+                <Box
+                  className="box_answer_1"
+                  handleClick={handleAnswerA}
+                  text={answerA}
+                ></Box>
+                <Box
+                  className="box_answer_2"
+                  handleClick={handleAnswerB}
+                  text={answerB}
+                />
+              </Grid>
+              {count === 12 ? (
+                <div
+                  style={{
+                    width: 500,
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <button
+                    style={{
+                      width: 200,
+                      height: 50,
+                    }}
+                    onClick={handleResult}
+                  >
+                    결과보기
+                  </button>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+          )}
+        </Wrapper>
+      </StyledContainer>
+    </div>
+  );
 }
 export default Container;
