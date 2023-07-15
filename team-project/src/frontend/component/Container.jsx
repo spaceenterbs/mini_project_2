@@ -230,18 +230,18 @@ function Container(props) {
           <div>
             <div class="border"></div>
             <div class="galands">
-              <div class="galand1"></div>
-              <div class="galand2"></div>
-              <div class="galand3"></div>
-              <div class="galand4"></div>
-              <div class="galand5"></div>
-              <div class="galand6"></div>
-              <div class="galand7"></div>
-              <div class="galand8"></div>
-              <div class="galand9"></div>
-              <div class="galand10"></div>
-              <div class="galand11"></div>
-              <div class="galand12"></div>
+              <div class="g1"></div>
+              <div class="g2"></div>
+              <div class="g3"></div>
+              <div class="g4"></div>
+              <div class="g5"></div>
+              <div class="g6"></div>
+              <div class="g7"></div>
+              <div class="g8"></div>
+              <div class="g9"></div>
+              <div class="g10"></div>
+              <div class="g11"></div>
+              <div class="g12"></div>
             </div>
           </div>
           {/* <Progress progressCount={progressCount} /> */}
