@@ -9,11 +9,12 @@ import "./Progress.css";
 const StyledContainer = styled.div`
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin: 0 auto;
   height: 100vh;
   padding: 50px 0;
-  background-color: #d88a49;
+  background-color: #4c200b;
   font-family: "UhBeemysen";
   font-size: 30px;
   font-weight: 700;
@@ -22,9 +23,8 @@ const StyledContainer = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: auto;
-
-  border: 1px solid black;
   margin: 0 auto;
   max-width: 1200px;
 `;
@@ -33,8 +33,8 @@ const QBox = styled.div`
   width: 500px;
   height: 300px;
   display: flex;
-  justify-content: center;
-  margin-bottom: 50px;
+  text-align: center;
+  margin: 30px 0 50px 0;
   padding: 30px;
   background-color: white;
   border-radius: 10px;
@@ -259,24 +259,24 @@ function Container(props) {
   return (
     <div>
       <StyledContainer className="container">
-        <Wrapper className="wrapper">
-          <div>
-            <div class="border"></div>
-            <div class="galands">
-              <div class="g1"></div>
-              <div class="g2"></div>
-              <div class="g3"></div>
-              <div class="g4"></div>
-              <div class="g5"></div>
-              <div class="g6"></div>
-              <div class="g7"></div>
-              <div class="g8"></div>
-              <div class="g9"></div>
-              <div class="g10"></div>
-              <div class="g11"></div>
-              <div class="g12"></div>
-            </div>
+        <div>
+          <div class="border"></div>
+          <div class="galands">
+            <div class="g1"></div>
+            <div class="g2"></div>
+            <div class="g3"></div>
+            <div class="g4"></div>
+            <div class="g5"></div>
+            <div class="g6"></div>
+            <div class="g7"></div>
+            <div class="g8"></div>
+            <div class="g9"></div>
+            <div class="g10"></div>
+            <div class="g11"></div>
+            <div class="g12"></div>
           </div>
+        </div>
+        <Wrapper className="wrapper">
           {/* <Progress progressCount={progressCount} /> */}
           {isLoading ? (
             <div>

@@ -1,12 +1,14 @@
 .border {
-  /* border: 1px solid black; */
   border-bottom: 1px solid beige;
+  display: inline;
+  justify-content: center;
   width: 1090px;
   height: 0;
 }
 
 .galands {
   display: flex;
+  justify-content: center;
 }
 .g1 {
   width: 0;
@@ -100,7 +102,7 @@
   width: 0;
   height: 0;
   border-bottom: 30px solid transparent;
-  border-top: 80px solid #191970;
+  border-top: 80px solid #faebd7;
   border-left: 50px solid transparent;
   border-right: 50px solid transparent;
 }
