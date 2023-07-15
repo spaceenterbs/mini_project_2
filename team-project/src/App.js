@@ -15,14 +15,13 @@ function App(props) {
   return (
       <div>
           <GlobalStyles />
-          <Progress />
-          {/* <BrowserRouter>
+          <BrowserRouter>
               <Routes>
                   <Route index element={<Start />} />
                   <Route path="Container" element={<Container />} />
                   <Route path="Result" element={<Result />} />
               </Routes>
-          </BrowserRouter> */}
+          </BrowserRouter>
       </div>
   );
 }
