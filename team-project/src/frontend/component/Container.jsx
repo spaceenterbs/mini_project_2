@@ -64,7 +64,7 @@ const QBox = styled.div`
     padding: 30px;
     background-color: white;
     border-radius: 10px;
-    border: 1px solid #4b0082;
+    border: 1px solid #ec96b5;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
         rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 `;
@@ -107,16 +107,16 @@ const ResultButton = styled.div`
     background-color: white;
     color: #4c200b;
     border-radius: 10px;
-    width: 200px;
+    width: 150px;
     margin: 0 auto;
     font-size: 28px;
-    font-weight: 700;
+    font-weight: 900;
     &:hover {
-        background-color: #ffe4e1;
+        background-color: #e6e6fa;
     }
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
         rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    border: 1px solid #4b0082;
+    border: 1px solid #ec96b5;
 `;
 const ResultButtonWrapper = styled.div`
 
