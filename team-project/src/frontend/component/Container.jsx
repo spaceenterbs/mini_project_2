@@ -8,6 +8,7 @@ import Progress from "./Progress";
 import "./Progress.css";
 
 const StyledContainer = styled.div`
+
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -22,23 +23,35 @@ const StyledContainer = styled.div`
   line-height: 2;
 `;
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: auto;
-  margin: 0 auto;
-  max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: auto;
+    margin: 0 auto;
+    max-width: 1200px;
+    white-space: pre-line;
 `;
 
 const QBox = styled.div`
-  width: 500px;
-  height: 300px;
-  display: flex;
-  text-align: center;
-  margin: 30px 0 50px 0;
-  padding: 30px;
-  background-color: white;
-  border-radius: 10px;
+    width: 500px;
+    @media screen and (max-width: 768px) {
+        width: 400px;
+    }
+    height: 300px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    word-break: keep-all;
+    margin: 30px auto 50px auto; // 수정한 부분:가운데로 가게
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid #4c200b;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
 `;
 const fadeOutAnimation = keyframes`
 from {
@@ -57,9 +70,15 @@ to {
 }
 `;
 const Grid = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    @media screen and (max-width: 768px) {
+        width: 400px;
+    }
+    margin: 0 auto;
+
 
   &.click {
     animation: ${fadeOutAnimation} 0.4s ease-out;
@@ -68,7 +87,31 @@ const Grid = styled.div`
     animation: ${fadeInAnimation} 0.4s ease-in;
   }
 `;
+const ResultButton = styled.div`
+    all: unset;
 
+    text-align: center;
+    background-color: white;
+    color: #4c200b;
+    border-radius: 10px;
+    width: 200px;
+    margin: 0 auto;
+    font-size: 28px;
+    font-weight: 700;
+    &:hover {
+        background-color: #f5e9d5;
+    }
+`;
+const ResultButtonWrapper = styled.div`
+
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    @media screen and (max-width: 768px) {
+        width: 400px;
+    }
+}}
+`;
 function Container(props) {
   const questionBox = [
     "오늘은 오랜만에 쉬는 날! 머리가 조금 복잡해져서 밖으로 나가려고 하는데, 평일에 어떤 고민을 해왔을까?",
@@ -155,62 +198,65 @@ function Container(props) {
       }
       console.log("3");
       if (count === 11) {
-        setAnswerA(answerBoxA[11].answer);
-        setAnswerB(answerBoxB[11].answer);
-        setQuestion(questionBox[11]);
-        setCount(count + 1);
-      } else if (count > 11) {
-        return;
-      } else {
-        setAnswerA(answerBoxA[count + 1].answer);
-        setAnswerB(answerBoxB[count + 1].answer);
-        setQuestion(questionBox[count + 1]);
-        setIsClick(false);
-        setCount(count + 1);
-        console.log("4");
-        console.log("카운트", count);
-      }
-      console.log("5");
-      console.log(array);
-    }, 300);
-    console.log("2");
-  };
-  const handleAnswerB = () => {
-    setClickedIndex(clickedIndex + 1);
-    if (count < 11) {
-      setIsClick(true);
-    }
-    setTimeout(() => {
-      if (count < 12) {
-        setArray((prevArray) => [
-          { [answerBoxB[count].mbti]: answerB },
-          ...prevArray,
-        ]); // setState함수인 setArray는 비동기적으로 작동하기 때문에
-        // 상태 업데이트를 한 직후에 상태를 확인할 수 없다. 그래서 다음 버튼 눌렀을 때에야 업데이트 된 상태를 확인가능
-        // 값이 들어오긴 함 -> 마지막 8번 누르고 count가 8이되니까 조건문으로 결과보기 버튼 구현할 것.
-        // 8번 답 누르면 결과보기 버튼 나오고(8번까지 저장된 상태) , 결과보기 버튼 누르면 그대로 전송 or 결과 계산
-      }
-      if (count === 11) {
-        setAnswerA(answerBoxA[11].answer);
-        setAnswerB(answerBoxB[11].answer);
-        setQuestion(questionBox[11]);
-        setCount(count + 1);
-      } else if (count > 11) {
-        return;
-      } else {
-        setAnswerA(answerBoxA[count + 1].answer);
-        setAnswerB(answerBoxB[count + 1].answer);
-        setQuestion(questionBox[count + 1]);
-        setIsClick(false);
-        setCount(count + 1);
-      }
-      console.log(array);
-    }, 300);
-  };
+                setAnswerA(answerBoxA[11].answer);
+                setAnswerB(answerBoxB[11].answer);
+                setQuestion(
+                    '가게를 나서려는 순간! 사장님이 당신에게 무언가를 건내주셨다! 과연 무엇일까?!'
+                );
+                setCount(count + 1);
+            } else if (count > 11) {
+                return;
+            } else {
+                setAnswerA(answerBoxA[count + 1].answer);
+                setAnswerB(answerBoxB[count + 1].answer);
+                setQuestion(questionBox[count + 1]);
+                setIsClick(false);
+                setCount(count + 1);
+                console.log('4');
+                console.log('카운트', count);
+            }
+            console.log('5');
+            console.log(array);
+        }, 300);
+        console.log('2');
+    };
+    const handleAnswerB = () => {
+        setClickedIndex(clickedIndex + 1);
+        if (count < 11) {
+            setIsClick(true);
+        }
+        setTimeout(() => {
+            if (count < 12) {
+                setArray((prevArray) => [
+                    { [answerBoxB[count].mbti]: answerB },
+                    ...prevArray,
+                ]); // setState함수인 setArray는 비동기적으로 작동하기 때문에
+                // 상태 업데이트를 한 직후에 상태를 확인할 수 없다. 그래서 다음 버튼 눌렀을 때에야 업데이트 된 상태를 확인가능
+                // 값이 들어오긴 함 -> 마지막 8번 누르고 count가 8이되니까 조건문으로 결과보기 버튼 구현할 것.
+                // 8번 답 누르면 결과보기 버튼 나오고(8번까지 저장된 상태) , 결과보기 버튼 누르면 그대로 전송 or 결과 계산
+            }
+            if (count === 11) {
+                setAnswerA(answerBoxA[11].answer);
+                setAnswerB(answerBoxB[11].answer);
+                setQuestion(questionBox[11]);
+                setCount(count + 1);
+            } else if (count > 11) {
+                return;
+            } else {
+                setAnswerA(answerBoxA[count + 1].answer);
+                setAnswerB(answerBoxB[count + 1].answer);
+                setQuestion(questionBox[count + 1]);
+                setIsClick(false);
+                setCount(count + 1);
+            }
+            console.log('array', array);
+        }, 300);
+    };
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const handleResult = () => {
+    const handleResult = () => {
+        setCount(13);
     setAnswerA(answerBoxA[11].answer);
     setAnswerB(answerBoxB[11].answer);
     setQuestion(questionBox[11]);
@@ -251,106 +297,164 @@ function Container(props) {
     if (updatedResult.filter((item) => item === "J").length >= 2) {
       result.push("J");
     }
+    
+        console.log(result);
+        const data = result.join('');
+        setTimeout(() => {
+            navigate('/result', { state: { data } });
+        }, 3000);
+        const postData = {
+            choices: updatedResult,
+            contents: choice,
+        };
+        console.log('answers', postData);
 
-    const data = result;
-    setTimeout(() => {
-      navigate("/result", { state: { data } });
-    }, 2000);
-  };
+        // axios
+        //     .post('http://127.0.0.1:8000/api/v1/mbti_get/answers/', postData)
+        //     .then(() => console.log('데이터 전송완료'));
 
-  return (
-    <div>
-      <StyledContainer className="container">
-        <Wrapper className="wrapper">
-          <div>
-            <div class="border"></div>
-            <div class="galands">
-              <div
-                class={`g1 basic ${0 >= 0 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-              <div
-                class={`g2 basic ${0 >= 1 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-              <div
-                class={`g3 basic ${0 >= 2 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-              <div
-                class={`g4 basic ${0 >= 3 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-              <div
-                class={`g5 basic ${0 >= 4 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-              <div
-                class={`g6 basic ${0 >= 5 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-              <div
-                class={`g7 basic ${0 >= 6 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-              <div
-                class={`g8 basic ${0 >= 7 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-              <div
-                class={`g9 basic ${0 >= 8 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-              <div
-                class={`g10 basic ${0 >= 9 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-              <div
-                class={`g11 basic ${0 >= 10 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-              <div
-                class={`g12 basic ${0 >= 11 - clickedIndex ? "" : "opacity"}`}
-              ></div>
-            </div>
-          </div>
-          {/* <Progress progressCount={progressCount} /> */}
-          {isLoading ? (
-            <div>
-              <p>Loading...</p>
-            </div>
-          ) : (
-            <div>
-              <QBox className="box_question">
-                <div>{question}</div>
-              </QBox>
-              <Grid className={`grid ${isClick ? "click" : "next"}`}>
-                <Box
-                  className="box_answer_1"
-                  handleClick={handleAnswerA}
-                  text={answerA}
-                ></Box>
-                <Box
-                  className="box_answer_2"
-                  handleClick={handleAnswerB}
-                  text={answerB}
-                />
-              </Grid>
-              {count === 12 ? (
+        // axios
+        //     .post('http://127.0.0.1:8000/api/v1/mbti_get/results/', {
+        //         mbti_result: data,
+        //     })
+        //     .then(() => {
+        //         console.log('mbti값 전송 완료');
+        //     });
+    };
+
+    return (
+        <div>
+            <StyledContainer className="container">
                 <div
-                  style={{
-                    width: 500,
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <button
                     style={{
-                      width: 200,
-                      height: 50,
+                        color: 'white',
+                        fontWeight: '500',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        fontSize: '40px',
                     }}
-                    onClick={handleResult}
-                  >
-                    결과보기
-                  </button>
+                >
+                    <span style={{ display: 'inline-block' }}>
+                        {count === 13 ? 'Have A Good Day!' : 'Welcome To SOSO'}
+                    </span>
                 </div>
-              ) : (
-                ""
-              )}
-            </div>
-          )}
-        </Wrapper>
-      </StyledContainer>
-    </div>
-  );
+                <div style={{}}>
+                    <div class="border"></div>
+                    <div
+                        class="galands"
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <div
+                            class={`g1 basic ${
+                                0 >= 0 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g2 basic ${
+                                0 >= 1 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g3 basic ${
+                                0 >= 2 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g4 basic ${
+                                0 >= 3 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g5 basic ${
+                                0 >= 4 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g6 basic ${
+                                0 >= 5 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g7 basic ${
+                                0 >= 6 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g8 basic ${
+                                0 >= 7 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g9 basic ${
+                                0 >= 8 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g10 basic ${
+                                0 >= 9 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g11 basic ${
+                                0 >= 10 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g12 basic ${
+                                0 >= 11 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                    </div>
+                </div>
+                <Wrapper className="wrapper">
+                    {/* <Progress progressCount={progressCount} /> */}
+                    {isLoading ? (
+                        <div>
+                            <p
+                                style={{
+                                    color: 'white',
+                                    fontSize: '30px',
+                                    fontWeight: '500',
+                                }}
+                            >
+                                Loading...
+                            </p>
+                        </div>
+                    ) : (
+                        <div className="box_container">
+                            <QBox className="box_question">
+                                <div>{question}</div>
+                            </QBox>
+                            <Grid
+                                className={`grid ${isClick ? 'click' : 'next'}`}
+                            >
+                                {count === 12 ? (
+                                    <ResultButtonWrapper>
+                                        <ResultButton onClick={handleResult}>
+                                            결과보기
+                                        </ResultButton>
+                                    </ResultButtonWrapper>
+                                ) : (
+                                    <div>
+                                        <Box
+                                            className="box_answer_1"
+                                            handleClick={handleAnswerA}
+                                            text={answerA}
+                                        ></Box>
+                                        <Box
+                                            className="box_answer_2"
+                                            handleClick={handleAnswerB}
+                                            text={answerB}
+                                        />
+                                    </div>
+                                )}
+                            </Grid>
+                        </div>
+                    )}
+                </Wrapper>
+            </StyledContainer>
+        </div>
+    );
+
 }
 export default Container;

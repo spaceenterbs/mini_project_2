@@ -18,7 +18,7 @@ ${reset}
 	        font-size : 15px;
 	        
 	      
-            background-color: lightblue;
+       
 	        overflow-x : hidden;
 	}
 `;
