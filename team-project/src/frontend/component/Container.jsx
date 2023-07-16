@@ -203,7 +203,7 @@ function Container(props) {
                 setIsClick(false);
                 setCount(count + 1);
             }
-            console.log(array);
+            console.log('array', array);
         }, 300);
     };
 
@@ -213,8 +213,16 @@ function Container(props) {
         setAnswerA(answerBoxA[11].answer);
         setAnswerB(answerBoxB[11].answer);
         setQuestion(questionBox[11]);
-        console.log('데이터', array);
         setIsLoading(true);
+        console.log('데이터', array);
+        const choice = [];
+        for (let j = 0; j < array.length; j++) {
+            // choice.push(Object.values(array[j])); // 이렇게 하면 [['E'],['J']] 이런식으로
+            //들어오니까 매우 주의할 것. 꼭 console찍어가면서 확인하기
+            const values = Object.values(array[j]);
+            choice.push(...values);
+        }
+        console.log('choice', choice);
         const updatedResult = [];
         const result = [];
         for (let i = 0; i < array.length; i++) {
@@ -256,17 +264,18 @@ function Container(props) {
             navigate('/result', { state: { data } });
         }, 3000);
         const postData = {
-            choices: Object.keys(array),
-            contents: Object.values(array),
+            choices: choice,
+            contents: updatedResult,
         };
+        console.log('answers', postData);
         const postContents = async () => {
             axios.post(
-                'http://127.0.0.1:8000/admin/mbti_get/answer/',
+                'http://127.0.0.1:8000/api/v1/mbti_get/answers/',
                 postData
             );
         };
         const postResult = async () => {
-            axios.post('http://127.0.0.1:8000/admin/mbti_get/result/', {
+            axios.post('http://127.0.0.1:8000/api/v1/mbti_get/results/', {
                 mbti_result: data,
             });
         };
