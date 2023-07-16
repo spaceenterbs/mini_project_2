@@ -1,7 +1,9 @@
 {
   "name": "team-project",
   "version": "0.1.0",
+  "proxy": "https://sshsreact.onrender.com/",
   "private": true,
+  "homepage": "https://sshsreact.onrender.com/",
   "dependencies": {
     "@react-navigation/native": "^6.1.7",
     "@testing-library/jest-dom": "^5.16.5",
