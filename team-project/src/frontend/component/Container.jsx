@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
 import Box from './Box';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import Progress from './Progress';
 // import Progress from './Progress';
 import './Progress.css';
@@ -14,11 +14,11 @@ const StyledContainer = styled.div`
     justify-content: center;
     margin: 0 auto;
     height: 100vh;
-    padding: 50px 0;
+    padding: 0 0 50px 0;
     background-color: #4c200b;
+    // background-color: white;
     font-family: 'UhBeemysen';
-    font-size: 30px;
-    font-weight: 700;
+
     line-height: 2;
 `;
 const Wrapper = styled.div`
@@ -28,6 +28,7 @@ const Wrapper = styled.div`
     padding: auto;
     margin: 0 auto;
     max-width: 1200px;
+    white-space: pre-line;
 `;
 
 const QBox = styled.div`
@@ -35,10 +36,17 @@ const QBox = styled.div`
     height: 300px;
     display: flex;
     text-align: center;
-    margin: 30px 0 50px 0;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    word-break: keep-all;
+    margin: 30px auto 50px auto; // 수정한 부분:가운데로 가게
     padding: 30px;
     background-color: white;
     border-radius: 10px;
+    border: 2px solid #4c200b;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 `;
 const fadeOutAnimation = keyframes`
 from {
@@ -60,12 +68,28 @@ const Grid = styled.div`
     display: flex;
     flex-direction: column;
     width: 500px;
+    margin: 0 auto;
 
     &.click {
         animation: ${fadeOutAnimation} 0.4s ease-out;
     }
     &.next {
         animation: ${fadeInAnimation} 0.4s ease-in;
+    }
+`;
+const ResultButton = styled.div`
+    all: unset;
+
+    text-align: center;
+    background-color: white;
+    color: #4c200b;
+    border-radius: 10px;
+    width: 200px;
+
+    font-size: 28px;
+    font-weight: 700;
+    &:hover {
+        background-color: #f5e9d5;
     }
 `;
 
@@ -82,7 +106,7 @@ function Container(props) {
         '소품샾에서 소품을 고르던 당신! 누군가와 손이 겹쳐지는데....',
         '소품샵에서 갑자기 깜짝 이벤트를 진행한다!',
         '계산대로 향한 당신의 장바구니에는 뭐가 들어있나?',
-        '가게를 다 둘러보고 이제 가려고 한다.  오늘의 쇼핑이 꽤나 마음에 들었던 당신! 당신의 행동은?',
+        '오늘의 쇼핑이 꽤나 마음에 들었던 당신! 당신의 행동은?',
     ];
     const answerBoxA = [
         { mbti: 'N', answer: '미래에 대한 두루뭉실한 고민' },
@@ -156,7 +180,9 @@ function Container(props) {
             if (count === 11) {
                 setAnswerA(answerBoxA[11].answer);
                 setAnswerB(answerBoxB[11].answer);
-                setQuestion(questionBox[11]);
+                setQuestion(
+                    '가게를 나서려는 순간! 사장님이 당신에게 무언가를 건내주셨다! 과연 무엇일까?!'
+                );
                 setCount(count + 1);
             } else if (count > 11) {
                 return;
@@ -210,6 +236,7 @@ function Container(props) {
     const navigate = useNavigate();
 
     const handleResult = () => {
+        setCount(13);
         setAnswerA(answerBoxA[11].answer);
         setAnswerB(answerBoxB[11].answer);
         setQuestion(questionBox[11]);
@@ -264,137 +291,149 @@ function Container(props) {
             navigate('/result', { state: { data } });
         }, 3000);
         const postData = {
-            choices: choice,
-            contents: updatedResult,
+            choices: updatedResult,
+            contents: choice,
         };
         console.log('answers', postData);
-        const postContents = async () => {
-            axios.post(
-                'http://127.0.0.1:8000/api/v1/mbti_get/answers/',
-                postData
-            );
-        };
-        const postResult = async () => {
-            axios.post('http://127.0.0.1:8000/api/v1/mbti_get/results/', {
-                mbti_result: data,
-            });
-        };
+
+        // axios
+        //     .post('http://127.0.0.1:8000/api/v1/mbti_get/answers/', postData)
+        //     .then(() => console.log('데이터 전송완료'));
+
+        // axios
+        //     .post('http://127.0.0.1:8000/api/v1/mbti_get/results/', {
+        //         mbti_result: data,
+        //     })
+        //     .then(() => {
+        //         console.log('mbti값 전송 완료');
+        //     });
     };
 
     return (
         <div>
             <StyledContainer className="container">
-                <Wrapper className="wrapper">
-                    <div>
-                        <div class="border"></div>
-                        <div class="galands">
-                            <div
-                                class={`g1 basic ${
-                                    0 >= 0 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                            <div
-                                class={`g2 basic ${
-                                    0 >= 1 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                            <div
-                                class={`g3 basic ${
-                                    0 >= 2 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                            <div
-                                class={`g4 basic ${
-                                    0 >= 3 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                            <div
-                                class={`g5 basic ${
-                                    0 >= 4 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                            <div
-                                class={`g6 basic ${
-                                    0 >= 5 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                            <div
-                                class={`g7 basic ${
-                                    0 >= 6 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                            <div
-                                class={`g8 basic ${
-                                    0 >= 7 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                            <div
-                                class={`g9 basic ${
-                                    0 >= 8 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                            <div
-                                class={`g10 basic ${
-                                    0 >= 9 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                            <div
-                                class={`g11 basic ${
-                                    0 >= 10 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                            <div
-                                class={`g12 basic ${
-                                    0 >= 11 - clickedIndex ? '' : 'opacity'
-                                }`}
-                            ></div>
-                        </div>
+                <div
+                    style={{
+                        color: 'white',
+                        fontWeight: '500',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        fontSize: '40px',
+                    }}
+                >
+                    <span style={{ display: 'inline-block' }}>
+                        {count === 13 ? 'Have A Good Day!' : 'Welcome To SOSO'}
+                    </span>
+                </div>
+                <div style={{}}>
+                    <div class="border"></div>
+                    <div
+                        class="galands"
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <div
+                            class={`g1 basic ${
+                                0 >= 0 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g2 basic ${
+                                0 >= 1 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g3 basic ${
+                                0 >= 2 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g4 basic ${
+                                0 >= 3 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g5 basic ${
+                                0 >= 4 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g6 basic ${
+                                0 >= 5 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g7 basic ${
+                                0 >= 6 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g8 basic ${
+                                0 >= 7 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g9 basic ${
+                                0 >= 8 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g10 basic ${
+                                0 >= 9 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g11 basic ${
+                                0 >= 10 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
+                        <div
+                            class={`g12 basic ${
+                                0 >= 11 - clickedIndex ? '' : 'opacity'
+                            }`}
+                        ></div>
                     </div>
+                </div>
+                <Wrapper className="wrapper">
                     {/* <Progress progressCount={progressCount} /> */}
                     {isLoading ? (
                         <div>
-                            <p>Loading...</p>
+                            <p style={{ color: 'white' }}>Loading...</p>
                         </div>
                     ) : (
-                        <div>
+                        <div className="box_container">
                             <QBox className="box_question">
                                 <div>{question}</div>
                             </QBox>
                             <Grid
                                 className={`grid ${isClick ? 'click' : 'next'}`}
                             >
-                                <Box
-                                    className="box_answer_1"
-                                    handleClick={handleAnswerA}
-                                    text={answerA}
-                                ></Box>
-                                <Box
-                                    className="box_answer_2"
-                                    handleClick={handleAnswerB}
-                                    text={answerB}
-                                />
-                            </Grid>
-                            {count === 12 ? (
-                                <div
-                                    style={{
-                                        width: 500,
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    <button
+                                {count === 12 ? (
+                                    <div
                                         style={{
-                                            width: 200,
-                                            height: 50,
+                                            width: 500,
+                                            display: 'flex',
+                                            justifyContent: 'center',
                                         }}
-                                        onClick={handleResult}
                                     >
-                                        결과보기
-                                    </button>
-                                </div>
-                            ) : (
-                                ''
-                            )}
+                                        <ResultButton onClick={handleResult}>
+                                            결과보기
+                                        </ResultButton>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <Box
+                                            className="box_answer_1"
+                                            handleClick={handleAnswerA}
+                                            text={answerA}
+                                        ></Box>
+                                        <Box
+                                            className="box_answer_2"
+                                            handleClick={handleAnswerB}
+                                            text={answerB}
+                                        />
+                                    </div>
+                                )}
+                            </Grid>
                         </div>
                     )}
                 </Wrapper>
