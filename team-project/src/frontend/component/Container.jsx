@@ -271,16 +271,8 @@ function Container(props) {
         setAnswerA(answerBoxA[11].answer);
         setAnswerB(answerBoxB[11].answer);
         setQuestion(questionBox[11]);
-        setIsLoading(true);
         console.log('데이터', array);
-        const choice = [];
-        for (let j = 0; j < array.length; j++) {
-            // choice.push(Object.values(array[j])); // 이렇게 하면 [['E'],['J']] 이런식으로
-            //들어오니까 매우 주의할 것. 꼭 console찍어가면서 확인하기
-            const values = Object.values(array[j]);
-            choice.push(...values);
-        }
-        console.log('choice', choice);
+        setIsLoading(true);
         const updatedResult = [];
         const result = [];
         for (let i = 0; i < array.length; i++) {
@@ -316,6 +308,7 @@ function Container(props) {
         if (updatedResult.filter((item) => item === 'J').length >= 2) {
             result.push('J');
         }
+
         console.log(result);
         const data = result.join('');
         setTimeout(() => {
