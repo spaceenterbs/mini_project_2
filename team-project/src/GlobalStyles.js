@@ -17,7 +17,7 @@ ${reset}
 	        font-family : apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell , 'Helvetica Neue', sans-serif;
 	        font-size : 15px;
 	        
-	      background-image: ${BackImage};
+          // background-image: ${BackImage};
        
 	        overflow-x : hidden;
 	}
