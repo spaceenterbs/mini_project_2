@@ -18,6 +18,9 @@ const Button = styled.button`
     border: 2px solid #4c200b;
     font-size: 24px;
     font-weight: 700;
+    @media screen and (max-width: 768px) {
+        width: 380px;
+    }
 `;
 function Box({ text, handleClick }) {
     return (

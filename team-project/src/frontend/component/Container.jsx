@@ -33,6 +33,9 @@ const Wrapper = styled.div`
 
 const QBox = styled.div`
     width: 500px;
+    @media screen and (max-width: 768px) {
+        width: 400px;
+    }
     height: 300px;
     display: flex;
     text-align: center;
@@ -68,6 +71,9 @@ const Grid = styled.div`
     display: flex;
     flex-direction: column;
     width: 500px;
+    @media screen and (max-width: 768px) {
+        width: 400px;
+    }
     margin: 0 auto;
 
     &.click {
@@ -85,14 +91,23 @@ const ResultButton = styled.div`
     color: #4c200b;
     border-radius: 10px;
     width: 200px;
-
+    margin: 0 auto;
     font-size: 28px;
     font-weight: 700;
     &:hover {
         background-color: #f5e9d5;
     }
 `;
+const ResultButtonWrapper = styled.div`
 
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    @media screen and (max-width: 768px) {
+        width: 400px;
+    }
+}}
+`;
 function Container(props) {
     const questionBox = [
         '오늘은 오랜만에 쉬는 날! 머리가 조금 복잡해져서 밖으로 나가려고 하는데, 평일에 어떤 고민을 해왔을까?',
@@ -397,7 +412,15 @@ function Container(props) {
                     {/* <Progress progressCount={progressCount} /> */}
                     {isLoading ? (
                         <div>
-                            <p style={{ color: 'white' }}>Loading...</p>
+                            <p
+                                style={{
+                                    color: 'white',
+                                    fontSize: '30px',
+                                    fontWeight: '500',
+                                }}
+                            >
+                                Loading...
+                            </p>
                         </div>
                     ) : (
                         <div className="box_container">
@@ -408,17 +431,11 @@ function Container(props) {
                                 className={`grid ${isClick ? 'click' : 'next'}`}
                             >
                                 {count === 12 ? (
-                                    <div
-                                        style={{
-                                            width: 500,
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
+                                    <ResultButtonWrapper>
                                         <ResultButton onClick={handleResult}>
                                             결과보기
                                         </ResultButton>
-                                    </div>
+                                    </ResultButtonWrapper>
                                 ) : (
                                     <div>
                                         <Box
