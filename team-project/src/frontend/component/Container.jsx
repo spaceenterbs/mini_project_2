@@ -56,6 +56,7 @@ const QBox = styled.div`
     display: flex;
     text-align: center;
     justify-content: center;
+    align-items: center;
     font-size: 28px;
     font-weight: 700;
     word-break: keep-all;
@@ -111,8 +112,11 @@ const ResultButton = styled.div`
     font-size: 28px;
     font-weight: 700;
     &:hover {
-        background-color: #f5e9d5;
+        background-color: #ffe4e1;
     }
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border: 1px solid #4b0082;
 `;
 const ResultButtonWrapper = styled.div`
 
@@ -271,8 +275,16 @@ function Container(props) {
         setAnswerA(answerBoxA[11].answer);
         setAnswerB(answerBoxB[11].answer);
         setQuestion(questionBox[11]);
-        console.log('데이터', array);
         setIsLoading(true);
+        console.log('데이터', array);
+        const choice = [];
+        for (let j = 0; j < array.length; j++) {
+            // choice.push(Object.values(array[j])); // 이렇게 하면 [['E'],['J']] 이런식으로
+            //들어오니까 매우 주의할 것. 꼭 console찍어가면서 확인하기
+            const values = Object.values(array[j]);
+            choice.push(...values);
+        }
+        console.log('choice', choice);
         const updatedResult = [];
         const result = [];
         for (let i = 0; i < array.length; i++) {
@@ -281,7 +293,6 @@ function Container(props) {
             //원래는 result라는 빈 배열을 state로 관리하여 key값들을 집어넣으려 하였으나
             //아무리 해도 값이 들어오지 않아서 그냥 쌩으로 집어넣음
         } // key 값 : 담긴 데이터의 mbti => 결과값 추출하기
-
         // setResult((prev) => [...updatedResult, ...prev]);//????작동 안 함.
         console.log(updatedResult);
         if (updatedResult.filter((item) => item === 'E').length >= 2) {
@@ -308,17 +319,16 @@ function Container(props) {
         if (updatedResult.filter((item) => item === 'J').length >= 2) {
             result.push('J');
         }
-
         console.log(result);
         const data = result.join('');
         setTimeout(() => {
             navigate('/result', { state: { data } });
         }, 3000);
-        const postData = {
-            choices: updatedResult,
-            contents: choice,
-        };
-        console.log('answers', postData);
+        // const postData = {
+        //     choices: updatedResult,
+        //     contents: choice,
+        // };
+        // console.log('answers', postData);
         // axios
         //     .post('http://127.0.0.1:8000/api/v1/mbti_get/answers/', postData)
         //     .then(() => console.log('데이터 전송완료'));
@@ -343,7 +353,7 @@ function Container(props) {
                         fontSize: '40px',
                     }}
                 >
-                    <span style={{ display: 'inline-block' }}>
+                    <span style={{ display: 'inline-block', fontWeight: 700 }}>
                         {count === 13 ? 'Have A Good Day!' : 'Welcome To SOSO'}
                     </span>
                 </div>

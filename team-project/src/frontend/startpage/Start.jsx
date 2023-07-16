@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import './Start.css';
 
 const StyledEntire = styled.div`
     width: 100%;
@@ -38,7 +37,7 @@ const StoryBox = styled.div`
 
 const Button = styled.button`
     &:hover {
-        background-color: #4c200b;
+        background-color: #3a365b;
         color: white;
     }
     all: unset;
@@ -54,6 +53,7 @@ const Button = styled.button`
     margin-bottom: 20px;
     z-index: 999;
 `;
+
 const Bottom = styled.div`
     border: transparent;
     position: absolute;

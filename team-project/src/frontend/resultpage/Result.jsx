@@ -53,7 +53,7 @@ const TadaBox = styled.div`
     padding: 20px 30px 0 30px;
     background-color: #fffaf0;
     border-radius: 10px;
-    margin: 0 auto 40px auto;
+    margin: 0 auto 20px auto;
     @media screen and (max-width: 768px) {
         width: 400px;
     }
@@ -73,7 +73,7 @@ const TextBox = styled.div`
     padding: 30px;
     background-color: #fffaf0;
     border-radius: 10px;
-    margin: 0 auto 50px auto;
+    margin: 0 auto 10px auto;
     @media screen and (max-width: 768px) {
         width: 400px;
     }
