@@ -58,7 +58,7 @@ const Bottom = styled.div`
   bottom: 0;
 `;
 const Join = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 5px;
   font-family: "SangSangFlowerRoad";
   color: #f0f8ff;
   font-size: 28px;
