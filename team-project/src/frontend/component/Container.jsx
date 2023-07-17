@@ -315,14 +315,24 @@ function Container(props) {
     };
     console.log("answers", postData);
     axios
-      .post("http://127.0.0.1:8000/api/v1/mbti_get/answers/", postData)
+      .post(
+        "https://shsm2ndproject.onrender.com/api/v1/mbti_get/answers/",
+        postData
+      )
       .then(() => console.log("데이터 전송완료"));
     axios
-      .post("http://127.0.0.1:8000/api/v1/mbti_get/results/", {
+      .post("https://shsm2ndproject.onrender.com/api/v1/mbti_get/results/", {
         mbti_result: data,
       })
       .then(() => {
         console.log("mbti값 전송 완료");
+      });
+    axios
+      .get("https://shsm2ndproject.onrender.com/api/v1/mbti_get/count/", {
+        count,
+      })
+      .then((res) => {
+        console.log("숫자", res);
       });
   };
 
