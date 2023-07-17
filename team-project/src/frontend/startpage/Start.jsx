@@ -26,9 +26,12 @@ const MiddleBox = styled.div`
 
 const StoryBox = styled.div`
     width: 400px;
+    @media screen and (max-width: 780px) {
+        width: 360px;
+    }
     margin-bottom: 160px;
     font-family: 'SangSangFlowerRoad';
-    font-size: 70px;
+    font-size: 60px;
     font-weight: 700;
     color: #f0f8ff;
     display: flex;
