@@ -55,15 +55,15 @@ const TadaBox = styled.div`
     // background-color: white;
     border-radius: 10px;
     margin: 0 auto 20px auto;
-    @media screen and (max-width: 768px) {
-        width: 400px;
+    @media screen and (max-width: 800px) {
+        width: 380px;
     }
     word-break: keep-all;
     white-space: pre-line;
 `;
 const TextBox = styled.div`
     width: 500px;
-    height: 700px;
+    height: 250px;
     display: flex;
     flex-direction: column;
     font-size: 28px;
@@ -71,12 +71,12 @@ const TextBox = styled.div`
     text-align: center;
     justify-content: center;
     font-family: 'UhBeemysen';
-    padding: 30px;
+    padding: 15px;
     background-color: #fffaf0;
     border-radius: 10px;
     margin: 0 auto 10px auto;
-    @media screen and (max-width: 768px) {
-        width: 400px;
+    @media screen and (max-width: 800px) {
+        width: 380px;
     }
     word-break: keep-all;
     white-space: pre-line;

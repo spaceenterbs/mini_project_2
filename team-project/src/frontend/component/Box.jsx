@@ -9,7 +9,7 @@ const Button = styled.button`
     border-radius: 10px;
     height: auto;
     width: 480px;
-    padding: 0 10px;
+
     text-align: center;
     margin-bottom: 20px;
     background-color: white;
@@ -18,8 +18,9 @@ const Button = styled.button`
     border: 1px solid #ec96b5;
     font-size: 24px;
     font-weight: 700;
-    @media screen and (max-width: 768px) {
-        width: 380px;
+    line-height: 1.5;
+    @media screen and (max-width: 800px) {
+        width: 350px;
     }
 `;
 function Box({ text, handleClick }) {

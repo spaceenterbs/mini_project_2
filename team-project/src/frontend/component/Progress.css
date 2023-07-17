@@ -20,7 +20,7 @@
     /* border-top: 80px solid transparent; */
     border-left: 40px solid transparent;
     border-right: 40px solid transparent;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 800px) {
         border-bottom: 0px solid transparent;
         /* border-top: 80px solid transparent; */
         border-left: 16px solid transparent;

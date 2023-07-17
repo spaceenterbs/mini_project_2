@@ -15,26 +15,7 @@ const StyledContainer = styled.div`
   margin: 0 auto;
   height: 100vh;
   padding: 0 0 50px 0;
-  // background: radial-gradient(
-  //     200% 100% at bottom center,
-  //     #f7f7b6,
-  //     #e96f92,
-  //     #75517d,
-  //     #1b2947
-  // );
-  // background: radial-gradient(
-  //     220% 105% at top center,
-  //     #1b2947 10%,
-  //     #75517d 40%,
-  //     #e96f92 65%,
-  //     #f7f7b6
-  // );
-  // background-attachment: fixed;
-  // overflow: hidden;
-  // background: linear-gradient(#8a2be2, #ba55d3, #dda0dd);
-  // background-color: white;
   font-family: "UhBeemysen";
-
   line-height: 2;
 `;
 const Wrapper = styled.div`
@@ -49,8 +30,9 @@ const Wrapper = styled.div`
 
 const QBox = styled.div`
   width: 500px;
-  @media screen and (max-width: 768px) {
-    width: 400px;
+  @media screen and (max-width: 800px) {
+    width: 350px;
+    line-height: 1.5;
   }
   height: 300px;
   display: flex;
@@ -88,8 +70,8 @@ const Grid = styled.div`
   display: flex;
   flex-direction: column;
   width: 500px;
-  @media screen and (max-width: 768px) {
-    width: 400px;
+  @media screen and (max-width: 800px) {
+    width: 350px;
   }
   margin: 0 auto;
 
@@ -123,21 +105,21 @@ const ResultButtonWrapper = styled.div`
     width: 500px;
     display: flex;
     justify-content: center;
-    @media screen and (max-width: 768px) {
-        width: 400px;
+    @media screen and (max-width: 800px) {
+        width: 350px;
     }
 }}
 `;
 function Container(props) {
   const questionBox = [
-    "오늘은 오랜만에 쉬는 날! \n머리가 조금 복잡해져서 밖으로 나가려고 하는데, \n평일에 어떤 고민을 해왔을까?",
-    "오늘은 힐링을 위해 소품샵에 가려고 외출을 하였다. \n소품샵을 가는 길에 언젠가 한번 가보려고 했던 가게가 보인다. 이때, 당신에게 드는 생각은?",
+    "오늘은 오랜만에 쉬는 날! \n머리가 조금 복잡해져서 밖으로 나가려고 하는데, 평일에 어떤 고민을 해왔을까?",
+    "오늘은 힐링을 위해 소품샵에 가려고 외출을 하였다. 소품샵을 가는 길에 언젠가 한번 가보려고 했던 가게가 보인다. 이때, 당신에게 드는 생각은?",
     "소품샵에 들어가자마자 마음에 쏙 드는 물건을 발견한 당신! 당신은 어떤 것을 더 먼저 보는가?",
-    "사장님이 액자를 걸고 있는 모습을 발견한다. \n 이때 떠오른 생각은?",
+    "사장님이 액자를 걸고 있는 모습을 발견한다. 이때 떠오른 생각은?",
     "귀여운 것들을 구경하고 있다보니까 핫플인지\n 사람들이 꽤나 많아졌다. 북적거리는 소품샵 내부에서 어떤 사람이 내 발을 실수로 밟았다. 당신의 반응은?",
-    "소품샵을 구경하던 중 우연히 친구를 만났다. \n친구가 이 물건을 사는 것이 어떠냐고 물어볼 때 당신의 반응은?",
-    "사람이 더 많아진 것 같다…! \n 주위에서 웅성대는 소리가 들려 고개를 돌려보았더니 \n직원이 진상 손님이랑 말다툼을 벌이고 있다. \n이때, 당신이 드는 생각은?",
-    "진상손님이 나간 이후 조금 잠잠해진 소품샵에서 \n소품샵을 본격적으로 쇼핑을 하려고 하는데, \n어떻게 구경할 것인가?",
+    "소품샵을 구경하던 중 우연히 친구를 만났다. 친구가 이 물건을 사는 것이 어떠냐고 물어볼 때 당신의 반응은?",
+    "사람이 더 많아진 것 같다…! \n 주위에서 웅성대는 소리가 들려 고개를 돌려보았더니 직원이 진상 손님이랑 말다툼을 벌이고 있다. \n이때, 당신이 드는 생각은?",
+    "진상손님이 나간 이후 조금 잠잠해진 소품샵에서 본격적으로 쇼핑을 하려고 하는데, 어떻게 구경할 것인가?",
     "소품샵에서 소품을 고르던 당신! \n누군가와 손이 겹쳐지는데....",
     "소품샵에서 갑자기 깜짝 이벤트를 진행한다!\n 이때 당신은 어떻게 할 것인가?",
     "계산대로 향한 당신의 장바구니에는 뭐가 들어있나?",
@@ -254,7 +236,9 @@ function Container(props) {
       if (count === 11) {
         setAnswerA(answerBoxA[11].answer);
         setAnswerB(answerBoxB[11].answer);
-        setQuestion(questionBox[11]);
+        setQuestion(
+          "가게를 나서려는 순간! 사장님이 당신에게 무언가를 건내주셨다! 과연 무엇일까?!"
+        );
         setCount(count + 1);
       } else if (count > 11) {
         return;
